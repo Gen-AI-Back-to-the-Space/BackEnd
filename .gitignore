@@ -1,0 +1,9 @@
+# text
+*token.txt
+*apikey.py
+
+# data
+*.m4a
+
+# mac
+*.DS_Store
