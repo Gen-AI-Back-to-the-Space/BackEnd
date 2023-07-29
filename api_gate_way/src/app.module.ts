@@ -3,9 +3,15 @@ import { UserModule } from './domain/user/user.module';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './middlewares/filters/http-exception.filter';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [UserModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    UserModule,
+  ],
   controllers: [],
   providers: [
     {
