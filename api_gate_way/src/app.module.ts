@@ -4,6 +4,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './middlewares/filters/http-exception.filter';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { ConfigModule } from '@nestjs/config';
+import { TourMemoryModule } from './domain/tour-memory/tour-memory.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
     }),
     UserModule,
+    TourMemoryModule,
   ],
   controllers: [],
   providers: [

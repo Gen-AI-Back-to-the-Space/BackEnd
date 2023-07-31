@@ -29,15 +29,5 @@ export interface TourMemoryEntity {
   /**
    * @format date-time
    */
-  createAt: string;
-
-  /**
-   * @format date-time
-   */
-  updatedAt: string | null;
-
-  /**
-   * @format date-time
-   */
-  deletedAt: string | null;
+  createdAt: string;
 }
