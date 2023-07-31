@@ -6,6 +6,8 @@ services:
       context: ./api_gate_way
       dockerfile: Dockerfile
     image: nest_server
+    env_file:
+      - ./.env
     ports:
       - 80:3000
     container_name: api_gate_way
