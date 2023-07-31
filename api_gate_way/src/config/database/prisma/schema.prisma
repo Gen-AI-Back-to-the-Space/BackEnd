@@ -25,6 +25,8 @@ model User {
 
 model TourMemory {
   id Int @id @default(autoincrement())
+  spaceClass String
+  spaceName String
   address String
   x String
   y String
