@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {
+  FindTourMemoryOutboundPortOutputDto,
   InsertTourMemoryOutboundPortInputDto,
   TourMemoryRepositoryOutboundPort,
 } from './tour-memory.repository.outbound-port';
@@ -18,5 +19,19 @@ export class TourMemoryRepository implements TourMemoryRepositoryOutboundPort {
     });
 
     return dateToString(tourMemory);
+  }
+
+  async findTourMemory(
+    userId: number,
+  ): Promise<FindTourMemoryOutboundPortOutputDto> {
+    const tourMemory = await this.prisma.tourMemory.findMany({
+      where: {
+        userId,
+      },
+    });
+
+    return dateToString({
+      tourMemoryList: tourMemory,
+    });
   }
 }
