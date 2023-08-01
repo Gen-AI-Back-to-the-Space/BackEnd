@@ -24,5 +24,7 @@ export interface TourMemoryRepositoryOutboundPort {
     tourInfo: InsertTourMemoryOutboundPortInputDto,
   ): Promise<TourMemoryEntity>;
 
-  findTourMemory(userId: number): Promise<FindTourMemoryOutboundPortOutputDto>;
+  findTourMemoryList(
+    userId: number,
+  ): Promise<FindTourMemoryOutboundPortOutputDto>;
 }
