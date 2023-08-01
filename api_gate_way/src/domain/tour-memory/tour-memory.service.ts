@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { TourMemoryEntity } from 'src/config/database/models/tour-memory.entity';
 import {
+  FindTourMemoryOutboundPortOutputDto,
   InsertTourMemoryOutboundPortInputDto,
   TOUR_MEMORY_REPOSITORY_OUTBOUND_PORT,
   TourMemoryRepositoryOutboundPort,
@@ -13,12 +14,20 @@ export class TourMemoryService {
     private readonly tourMemoryRepository: TourMemoryRepositoryOutboundPort,
   ) {}
 
-  async readTourMemory(
+  async recordTourMemory(
     tourInfo: InsertTourMemoryOutboundPortInputDto,
   ): Promise<TourMemoryEntity> {
     const tourMemory = await this.tourMemoryRepository.insertTourMemory(
       tourInfo,
     );
+
+    return tourMemory;
+  }
+
+  async readTourMemory(
+    userId: number,
+  ): Promise<FindTourMemoryOutboundPortOutputDto> {
+    const tourMemory = await this.tourMemoryRepository.findTourMemory(userId);
 
     return tourMemory;
   }

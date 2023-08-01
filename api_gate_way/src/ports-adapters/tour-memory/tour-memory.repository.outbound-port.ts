@@ -15,8 +15,14 @@ export type InsertTourMemoryOutboundPortInputDto = Pick<
   | 'y'
 >;
 
+export type FindTourMemoryOutboundPortOutputDto = {
+  tourMemoryList: TourMemoryEntity[];
+};
+
 export interface TourMemoryRepositoryOutboundPort {
   insertTourMemory(
     tourInfo: InsertTourMemoryOutboundPortInputDto,
   ): Promise<TourMemoryEntity>;
+
+  findTourMemory(userId: number): Promise<FindTourMemoryOutboundPortOutputDto>;
 }
