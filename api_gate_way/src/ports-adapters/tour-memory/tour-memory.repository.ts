@@ -21,7 +21,7 @@ export class TourMemoryRepository implements TourMemoryRepositoryOutboundPort {
     return dateToString(tourMemory);
   }
 
-  async findTourMemory(
+  async findTourMemoryList(
     userId: number,
   ): Promise<FindTourMemoryOutboundPortOutputDto> {
     const tourMemory = await this.prisma.tourMemory.findMany({

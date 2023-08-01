@@ -38,6 +38,27 @@ export class TourMemoryController {
     return tourMemory;
   }
 
+  @TypedRoute.Post('ai-search')
+  async getTourMemoryUsingChatGPT(@TypedBody() body: string): Promise<string> {
+    const user = {
+      id: 1,
+      email: 'test@gmail.com',
+      password: '1234',
+      name: '김철수',
+      nickname: '슈퍼맨',
+      createdAt: '2023-07-31T10:04:53.655Z',
+      updatedAt: null,
+      deletedAt: null,
+    };
+
+    const answer = await this.tourMemoryService.searchTourMemoryUsingChatGPT(
+      user.id,
+      body,
+    );
+
+    return answer;
+  }
+
   // 아... 나중에 페이지네이션 구현해야함
   @TypedRoute.Get()
   async readTourMemory(): Promise<FindTourMemoryOutboundPortOutputDto> {
@@ -52,10 +73,8 @@ export class TourMemoryController {
       deletedAt: null,
     };
 
-    const tourMemory = await this.tourMemoryService.readTourMemory(user.id);
+    const tourMemoryList = await this.tourMemoryService.readTourMemory(user.id);
 
-    console.log(tourMemory);
-
-    return tourMemory;
+    return tourMemoryList;
   }
 }
