@@ -7,6 +7,10 @@ import {
   InsertTourMemoryOutboundPortInputDto,
 } from 'src/ports-adapters/tour-memory/tour-memory.repository.outbound-port';
 import { TourMemoryEntity } from 'src/config/database/models/tour-memory.entity';
+import {
+  GetAnswerFromChatGpt,
+  GetTourMemoryUsingChatGPTBodyDto,
+} from 'src/dtos/tour-memory/get-tour-memory.dto';
 
 @Controller('api/v1/tour-memory')
 export class TourMemoryController {
@@ -39,7 +43,9 @@ export class TourMemoryController {
   }
 
   @TypedRoute.Post('ai-search')
-  async getTourMemoryUsingChatGPT(@TypedBody() body: string): Promise<string> {
+  async getTourMemoryUsingChatGPT(
+    @TypedBody() body: GetTourMemoryUsingChatGPTBodyDto,
+  ): Promise<GetAnswerFromChatGpt> {
     const user = {
       id: 1,
       email: 'test@gmail.com',
@@ -53,7 +59,7 @@ export class TourMemoryController {
 
     const answer = await this.tourMemoryService.searchTourMemoryUsingChatGPT(
       user.id,
-      body,
+      body.query,
     );
 
     return answer;

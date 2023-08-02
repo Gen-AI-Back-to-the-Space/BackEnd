@@ -12,3 +12,6 @@
 
 # env
 .env
+
+# virtuan env
+venv

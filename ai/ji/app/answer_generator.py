@@ -7,45 +7,56 @@ from langchain.agents import create_pandas_dataframe_agent
 import pandas as pd
 from app.utils import *
 from app.model import *
-from app.apikey import OPENAI_API_KEY
 
 
-def generate_answer(user_request: QueryData) -> TextResult:
-     answer_result = TextResult()
-     user_input = user_request.query
-     user_data = user_request.data
-     
-     try:
-        # travel_df = json_to_dataframe(user_data)
-        # travel = create_pandas_dataframe_agent(llm=OpenAI(temperature=0.7), df=travel_df, verbose=True)
-        # response = travel.run(user_input)
-        # answer_result.answer = response
-        answer_result.answer = "이것은 테스트 답변입니다. 좋은 하루 되세요 :)"
+# def generate_answer(user_request: QueryData) -> TextResult:
+#     answer_result = TextResult()
+#     user_input = user_request.query
+#     user_data = user_request.data
 
-     except Exception as err:
-        print('[ERROR][GENERATE_ANSWER] : ', str(err))
+#     try:
+#         # travel_df = json_to_dataframe(user_data)
+#         # travel = create_pandas_dataframe_agent(llm=OpenAI(temperature=0.7), df=travel_df, verbose=True)
+#         # response = travel.run(user_input)
+#         # answer_result.answer = response
+#         answer_result.answer = "이것은 테스트 답변입니다. 좋은 하루 되세요 :)"
 
-     return answer_result
-     
+#     except Exception as err:
+#         print("[ERROR][GENERATE_ANSWER] : ", str(err))
 
-# def generate_answer(user_content, udate_json_path, model_gpt="text-davinci-003"):
-#     # text-davinci-003
-#     # gpt-3.5-turbo
+#     return answer_result
 
-#     # openai API 키 인증
-#     openai.api_key = OPENAI_API_KEY
 
-#     travel_df = json_to_dataframe(udate_json_path)
-#     travel = create_pandas_dataframe_agent(llm=OpenAI(temperature=0.5), df=travel_df, verbose=True)
-    
-#     return travel.run(user_content)
+def generate_answer(user_request: QueryData, model_gpt="text-davinci-003"):
+    # text-davinci-003
+    # gpt-3.5-turbo
+    answer_result = TextResult()
+
+    user_input = user_request.query
+    user_data = user_request.data
+
+    # openai API 키 인증
+    openai.api_key = os.environ["OPENAI_API_KEY"]
+
+    try:
+        travel_df = json_to_dataframe(user_data)
+        travel = create_pandas_dataframe_agent(
+            llm=OpenAI(temperature=0.7), df=travel_df, verbose=True
+        )
+        response = travel.run(user_input)
+        answer_result.answer = response
+    except Exception as err:
+        print("[ERROR][GENERATE_ANSWER] : ", str(err))
+
+    print(answer_result)
+
+    return answer_result
+
 
 if __name__ == "__main__":
     print(os.getcwd())
-    json_path = os.path.join(os.getcwd(),'ai','ji','user_space_test.json')
+    json_path = os.path.join(os.getcwd(), "ai", "ji", "user_space_test.json")
     # json_data_list
-    
+
     # user_contents
     print(generate_answer("부산에 해산물 맛있는 곳이 어디더라?", json_path))
-    
-    

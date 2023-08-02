@@ -9,10 +9,6 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 from app.answer_generator import *
 from app.model import *
-from app.apikey import OPENAI_API_KEY
-
-
-os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 app = FastAPI()
 

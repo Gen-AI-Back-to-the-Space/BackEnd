@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { TourMemoryEntity } from 'src/config/database/models/tour-memory.entity';
+import { GetAnswerFromChatGpt } from 'src/dtos/tour-memory/get-tour-memory.dto';
 import {
   FindTourMemoryOutboundPortOutputDto,
   InsertTourMemoryOutboundPortInputDto,
@@ -38,7 +39,7 @@ export class TourMemoryService {
   async searchTourMemoryUsingChatGPT(
     userId: number,
     query: string,
-  ): Promise<string> {
+  ): Promise<GetAnswerFromChatGpt> {
     // 유저 id를 기반으로 해당 유저의 여행 기록을 뽑아온다.
     const tourMemoryList = await this.tourMemoryRepository.findTourMemoryList(
       userId,
@@ -49,8 +50,10 @@ export class TourMemoryService {
       data: tourMemoryList.tourMemoryList,
     };
 
-    const res = await axios.post<string>(
-      'http://fastapi_server:8080/answer',
+    console.log(input.data);
+
+    const res = await axios.post<GetAnswerFromChatGpt>(
+      'http://fastapi_server:80/answer',
       input,
       {
         headers: {
@@ -60,6 +63,8 @@ export class TourMemoryService {
     );
 
     const data = res.data;
+
+    console.log(data);
 
     return data;
   }
