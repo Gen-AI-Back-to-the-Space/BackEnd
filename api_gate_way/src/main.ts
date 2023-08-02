@@ -18,7 +18,9 @@ async function bootstrap() {
   swaggerSetUp(app);
   nestiaSwaggerSetUp(app);
 
-  app.enableCors();
+  app.enableCors({
+    origin: ['http://localhost:3000', 'http://fastapi_server:80'],
+  });
 
   await app.listen(port);
 }
