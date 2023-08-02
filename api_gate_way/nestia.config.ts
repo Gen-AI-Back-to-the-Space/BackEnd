@@ -10,6 +10,10 @@ export const config: INestiaConfig = {
     output: 'swagger.json',
     servers: [
       {
+        url: 'http://space.skflyaiproject.store:80',
+        description: 'skflyaiproject',
+      },
+      {
         url: `http://localhost:80`,
         description: 'localhost',
       },
