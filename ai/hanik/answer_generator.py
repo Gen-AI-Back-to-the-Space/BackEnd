@@ -72,7 +72,7 @@ def generate_answer(user_content, udate_json_path, model_gpt="text-davinci-003")
     travel_df = json_to_dataframe(udate_json_path)
 
     # prompt 생성
-    prompt = f"사용자가 {user_content}에 관련된 것을 문장으로 물어보았을 때 관련 주소와 일시를 정확히 알려주고, 그 장소에 대한 다른 사람들의 평가를 함께 제공해줘"
+    prompt = f"사용자가 {user_content}에 관련된 것을 문장으로 물어보았을 때 관련 주소와 일시를 정확히 알려주고, 존댓말을 하지말고 반말로 대답해줘"
 
     travel = create_pandas_dataframe_agent(llm=OpenAI(temperature=0.7), df=travel_df, verbose=True)
 
@@ -81,9 +81,9 @@ def generate_answer(user_content, udate_json_path, model_gpt="text-davinci-003")
 
 if __name__ == "__main__":
     print(os.getcwd())
-    json_path = os.path.join(os.getcwd(),'ai','hanik','user_space_test.json')
+    json_path = os.path.join(os.getcwd(),'ai','hanik','hanik_data.json')
     # print(json_path)
     # json_data_list
     # user_contents
-    print(generate_answer("부산에서 음식을 짜게 먹었던 장소가 어디야 ?", json_path))
+    print(generate_answer("최근에 분위기 좋은 카페가 어디였지 ?", json_path))
     
